@@ -1,11 +1,15 @@
 import axios from 'axios';
 
 const Axios = axios.create({
-  baseURL: 'http://localhost:3004',
+  baseURL: 'https://goit-phonebook-api.herokuapp.com',
 });
 
+export const setAuthToket = token => {
+  Axios.defaults.headers.common['Authorization'] = token;
+};
+
 export const getContacts = async () => {
-  const { data } = await Axios.get('/contacts?_sort=name');
+  const { data } = await Axios.get('/contacts');
   return data;
 };
 
@@ -15,4 +19,23 @@ export const addContact = async contact => {
 
 export const deleteContact = async id => {
   await Axios.delete(`/contacts/${id}`);
+};
+
+export const updateContact = async (id, contact) => {
+  await Axios.patch(`/contacts/${id}`, contact);
+};
+
+export const singUp = async userInfo => {
+  const response = await Axios.post('/users/singup', userInfo);
+  return response;
+};
+
+export const logIn = async authData => {
+  const response = await Axios.post('/users/login', authData);
+  return response;
+};
+
+export const logOut = async () => {
+  const response = await Axios.post('/users/logout');
+  return response;
 };
