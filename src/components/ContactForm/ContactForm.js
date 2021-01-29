@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 // import actions from '../../redux/actions';
-import { getContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/operations';
+import { getContacts } from '../../redux/contacts/selectors';
+import { addContact } from '../../redux/contacts/operations';
 import isUniqueContact from '../../services/isUniqueContact';
 
 import s from './ContactForm.module.css';

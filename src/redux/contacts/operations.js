@@ -1,5 +1,5 @@
 import { v4 as uid } from 'uuid';
-import * as contactsAPI from '../services/contactsAPI';
+import * as contactsAPI from '../../services/contactsAPI';
 import actions from './actions';
 
 export const getContacts = () => async dispatch => {

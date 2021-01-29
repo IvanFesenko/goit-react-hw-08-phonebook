@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import 'normalize.css';
 import './index.css';
 import App from './App';
-import store from './redux/store';
+import { store, persistor } from './redux/store';
 
 ReactDOM.render(
   <BrowserRouter>

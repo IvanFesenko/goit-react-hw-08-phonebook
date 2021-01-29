@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './App.module.css';
 
-import { getContacts } from './redux/selectors.js';
-import { getContacts as fetchContacts } from './redux/operations';
+import { getContacts } from './redux/contacts/selectors.js';
+import { getContacts as fetchContacts } from './redux/contacts/operations';
 
 import Header from './components/Header';
 import Contacts from './components/Contacts/Contacts';
