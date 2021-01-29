@@ -25,17 +25,22 @@ export const updateContact = async (id, contact) => {
   await Axios.patch(`/contacts/${id}`, contact);
 };
 
-export const singUp = async userInfo => {
+export const authSingUp = async userInfo => {
   const response = await Axios.post('/users/singup', userInfo);
   return response;
 };
 
-export const logIn = async authData => {
+export const authLogIn = async authData => {
   const response = await Axios.post('/users/login', authData);
   return response;
 };
 
-export const logOut = async () => {
+export const authLogOut = async () => {
   const response = await Axios.post('/users/logout');
+  return response;
+};
+
+export const authCurrentUser = async () => {
+  const response = await Axios.get('/users/current');
   return response;
 };
