@@ -31,6 +31,7 @@ export const authSingUp = async userInfo => {
 };
 
 export const authLogIn = async authData => {
+  console.log(authData);
   const response = await Axios.post('/users/login', authData);
   return response;
 };

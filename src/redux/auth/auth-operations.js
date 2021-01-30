@@ -29,6 +29,7 @@ const register = createAsyncThunk('auth/register', async credentials => {
 
 const logIn = createAsyncThunk('auth/login', async credentials => {
   try {
+    console.log(credentials);
     const { data } = await authLogIn(credentials);
     token.set(data.token);
     return data;

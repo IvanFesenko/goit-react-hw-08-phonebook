@@ -2,11 +2,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PhoneIcon from '@material-ui/icons/Phone';
 import { withStyles } from '@material-ui/core/styles';
-
-import s from './Header.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from '../../redux/auth';
 
 const StyledTitle = withStyles({
   root: {
@@ -14,21 +14,36 @@ const StyledTitle = withStyles({
   },
 })(Typography);
 
-const StyledTooleBar = withStyles({
+const StyledToolBar = withStyles({
   root: {
     backgroundColor: '#9ecaed',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 })(Toolbar);
 
 function Header() {
+  const dispatch = useDispatch();
+  const userLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+
+  const onClickHandler = () => {
+    dispatch(authOperations.logOut());
+  };
+
   return (
     <AppBar position="static">
-      <StyledTooleBar>
+      <StyledToolBar>
         <StyledTitle variant="h1" noWrap>
           <PhoneIcon />
           Phonebook
         </StyledTitle>
-      </StyledTooleBar>
+
+        {userLoggedIn && (
+          <IconButton onClick={onClickHandler}>
+            <ExitToAppIcon />
+          </IconButton>
+        )}
+      </StyledToolBar>
     </AppBar>
   );
 }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './App.module.css';
 
 import { getContacts } from './redux/contacts/selectors.js';
+import { authOperations, authSelectors } from './redux/auth';
 import { getContacts as fetchContacts } from './redux/contacts/operations';
 
 import Header from './components/Header';
@@ -15,10 +16,14 @@ import UserForm from './components/UserForm';
 
 function App() {
   const contacts = useSelector(getContacts);
+  const checkingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
+  const userLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(authOperations.fetchCurrentUser());
+    //dispatch(fetchContacts());
   }, [dispatch]);
 
   return (
@@ -26,7 +31,8 @@ function App() {
       <Header />
 
       <div className={styles.container}>
-        <UserForm />
+        {!userLoggedIn && <UserForm />}
+
         <ContactForm />
         {contacts.length > 0 ? (
           <Contacts>
