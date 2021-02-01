@@ -1,11 +1,18 @@
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { authOperations } from '../../redux/auth/';
 
 import s from './RegistrationForm.module.css';
 
 function RegistrationForm({ styles }) {
-  const { register, handleSubmit, errors, reset } = useForm();
+  const { register, handleSubmit, errors } = useForm();
+  const dispatch = useDispatch();
 
-  const onSubmit = ({ userName, userMail, password }) => {};
+  const onSubmit = ({ userName, userMail, password }) => {
+    dispatch(
+      authOperations.register({ name: userName, email: userMail, password }),
+    );
+  };
 
   return (
     <form className={styles} onSubmit={handleSubmit(onSubmit)}>

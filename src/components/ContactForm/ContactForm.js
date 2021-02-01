@@ -1,53 +1,60 @@
+import 'react-phone-number-input/style.css';
+
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-// import actions from '../../redux/actions';
 import { getContacts } from '../../redux/contacts/selectors';
 import { addContact } from '../../redux/contacts/operations';
 import isUniqueContact from '../../services/isUniqueContact';
 
+import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input';
+
 import s from './ContactForm.module.css';
 
 function ContactForm() {
-  const { register, handleSubmit, errors, reset } = useForm();
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
-  const onSubmit = ({ name, number }) => {
+  const onSubmit = event => {
+    console.log(event);
     if (isUniqueContact(contacts, name)) {
       dispatch(addContact(name, number));
-      reset();
     } else {
       alert(`${name} is already in contacts`);
     }
   };
 
+  const handleNumberChange = e => {
+    const value = formatPhoneNumberIntl(String(e));
+    setNumber(value);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+    <form onSubmit={onSubmit} className={s.form}>
       <label htmlFor="formName">
-        Name {errors.name && ' is required.'}
+        Name
         <input
           id="formName"
           className={s.formName}
           type="text"
           name="name"
           placeholder="Name"
-          ref={register({ required: true, min: 2, maxLength: 30 })}
+          onChange={e => setName(e.target.value)}
         />
       </label>
       <label htmlFor="formNumber">
-        Number {errors.number && ' is required.'}
-        <input
+        Number
+        <PhoneInput
           id="formNumber"
-          className={s.formNumber}
+          // className={s.formNumber}
           type="tel"
           name="number"
           placeholder="Number"
-          ref={register({
-            required: true,
-            min: 8,
-            maxLength: 12,
-            pattern: /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i,
-          })}
+          onChange={handleNumberChange}
+          onFocus={() => {}}
         />
       </label>
       <button type="submit" className={s.btn}>

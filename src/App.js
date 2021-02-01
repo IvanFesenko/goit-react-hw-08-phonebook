@@ -23,24 +23,34 @@ function App() {
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
-    //dispatch(fetchContacts());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, userLoggedIn]);
 
   return (
     <>
       <Header />
 
       <div className={styles.container}>
-        {!userLoggedIn && <UserForm />}
-
-        <ContactForm />
-        {contacts.length > 0 ? (
-          <Contacts>
-            <Filter />
-            <ContactList contacts={contacts} />
-          </Contacts>
+        {!userLoggedIn ? (
+          <UserForm />
         ) : (
-          <p>Your phonebook is empty at this moment</p>
+          <>
+            <ContactForm />
+
+            {contacts.length > 0 ? (
+              <Contacts>
+                <Filter />
+                <ContactList contacts={contacts} />
+              </Contacts>
+            ) : (
+              <p>Your phonebook is empty at this moment</p>
+            )}
+          </>
         )}
       </div>
     </>

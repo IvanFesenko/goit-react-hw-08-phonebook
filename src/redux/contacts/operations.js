@@ -1,4 +1,3 @@
-import { v4 as uid } from 'uuid';
 import * as contactsAPI from '../../services/contactsAPI';
 import actions from './actions';
 
@@ -15,9 +14,9 @@ export const getContacts = () => async dispatch => {
 export const addContact = (name, number) => async dispatch => {
   dispatch(actions.addContactRequest());
   try {
-    const contact = { name, number, id: uid() };
-    await contactsAPI.addContact(contact);
-    dispatch(actions.addContactSuccess(contact));
+    const contact = { name, number };
+    const response = await contactsAPI.addContact(contact);
+    dispatch(actions.addContactSuccess(response.data));
   } catch (error) {
     dispatch(actions.addContactReject(error));
   }

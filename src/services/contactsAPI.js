@@ -14,7 +14,7 @@ export const getContacts = async () => {
 };
 
 export const addContact = async contact => {
-  await Axios.post('/contacts', contact);
+  return await Axios.post('/contacts', contact);
 };
 
 export const deleteContact = async id => {
@@ -26,12 +26,11 @@ export const updateContact = async (id, contact) => {
 };
 
 export const authSingUp = async userInfo => {
-  const response = await Axios.post('/users/singup', userInfo);
+  const response = await Axios.post('/users/signup', userInfo);
   return response;
 };
 
 export const authLogIn = async authData => {
-  console.log(authData);
   const response = await Axios.post('/users/login', authData);
   return response;
 };
