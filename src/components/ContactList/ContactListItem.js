@@ -6,7 +6,9 @@ function ContactListItem({ info, onDeleteHandler }) {
     <li className={s.item}>
       <p className={s.wrap}>
         <span className={s.name}>{info.name}</span>
-        <span className={s.phone}>{info.number}</span>
+        <a href={`tel:${info.number}`} className={s.phone}>
+          {info.number}
+        </a>
       </p>
       <DeleteButton handler={onDeleteHandler} />
     </li>

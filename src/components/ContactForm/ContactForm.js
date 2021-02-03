@@ -1,7 +1,8 @@
 import 'react-phone-number-input/style.css';
+import './phoneInput.css';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from '../../redux/contacts/selectors';
 import { addContact } from '../../redux/contacts/operations';
@@ -18,10 +19,15 @@ function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
-  const onSubmit = event => {
-    console.log(event);
+  const onSubmit = e => {
+    e.preventDefault();
+
     if (isUniqueContact(contacts, name)) {
-      dispatch(addContact(name, number));
+      if (name) {
+        dispatch(addContact(name, number));
+      } else {
+        dispatch(addContact(number, number));
+      }
     } else {
       alert(`${name} is already in contacts`);
     }
@@ -34,29 +40,31 @@ function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className={s.form}>
-      <label htmlFor="formName">
-        Name
-        <input
-          id="formName"
-          className={s.formName}
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={e => setName(e.target.value)}
-        />
+      <label className={s.label} htmlFor="formName">
+        Name:
       </label>
-      <label htmlFor="formNumber">
-        Number
-        <PhoneInput
-          id="formNumber"
-          // className={s.formNumber}
-          type="tel"
-          name="number"
-          placeholder="Number"
-          onChange={handleNumberChange}
-          onFocus={() => {}}
-        />
+      <input
+        id="formName"
+        className={s.formName}
+        type="text"
+        name="name"
+        placeholder="Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <label className={s.label} htmlFor="formNumber">
+        Number:
       </label>
+      <PhoneInput
+        id="formNumber"
+        // className={s.formNumber}
+        type="tel"
+        name="number"
+        placeholder="Number"
+        value={number}
+        onChange={handleNumberChange}
+        onFocus={() => {}}
+      />
       <button type="submit" className={s.btn}>
         Add contact
       </button>

@@ -1,5 +1,11 @@
 .form {
   max-width: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 6px;
 }
 
 .input {
@@ -8,6 +14,7 @@
   border: 2px solid rgba(4, 0, 20, 0.75);
   border-radius: 7px;
   padding: 5px 10px;
+  flex: 1 1;
 }
 
 .input:focus {
@@ -18,12 +25,12 @@
 
 .formName {
   composes: input;
-  width: 80%;
+  /* width: 80%; */
 }
 
 .formNumber {
   composes: input;
-  width: 80%;
+  /* width: 80%; */
 }
 
 .btn {

@@ -1,0 +1,17 @@
+.PhoneInput {
+  margin-bottom: 20px;
+}
+
+.PhoneInputInput {
+  display: block;
+
+  border: 2px solid rgba(4, 0, 20, 0.75);
+  border-radius: 7px;
+  padding: 5px 10px;
+}
+
+.PhoneInputInput:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
